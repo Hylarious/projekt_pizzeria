@@ -52,14 +52,77 @@
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
 
+  class Product {
+    constructor(id, data) {
+      const thisProduct = this;
+      thisProduct.id = id;
+      thisProduct.data = data;
+      thisProduct.renderInMenu();
+      thisProduct.initAcordeon();
+      // console.log('new Product', thisProduct);
+    }
+    renderInMenu() {
+      const thisProduct = this;
+      /*generate html based on template */
+      const generatedHTML = templates.menuProduct(thisProduct.data);
+      /* create eleemnt using utils.createElementFromHtml*/
+      thisProduct.element = utils.createDOMFromHTML(generatedHTML);
+      /*find menu container */
+      const menuContainer = document.querySelector(select.containerOf.menu);
+      /*add element to menu */
+      menuContainer.appendChild(thisProduct.element);
+    }
+    initAcordeon() {
+      const thisProduct = this;
+      /* find the clickable trigger (the element that should react to clicking) */
+      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      console.log('1', thisProduct.element);
+      /* START: add event listener to clickable trigger on event click */
+      clickableTrigger.addEventListener('click', function(event) {
+        /* prevent default action for event */
+        event.preventDefault();
+        /* find active product (product that has active class) */
+        const activeProduct = thisProduct.element.querySelector(classNames.menuProduct.wrapperActive);
+        console.log(activeProduct);
+        // .parentElement;
+        /* if there is active product and it's not thisProduct.element, remove class active from it */
+        if (activeProduct == thisProduct.element) {
+          activeProduct.element.classList.remove(classNames.menuProduct.wrapperActive);
+        }
+        /* toggle active class on thisProduct.element */
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
+        // activeProduct.classList.toggle(classNames.menuProduct.wrapperActive);
+
+      });
+    }
+  }
+
+
   const app = {
-    init: function(){
+    initMenu: function() {
+      const thisApp = this;
+      console.log('thisApp.data: ', thisApp.data);
+
+      for (let productData in thisApp.data.products) {
+        new Product(productData, thisApp.data.products[productData]);
+      }
+    },
+    initData: function() {
+      const thisApp = this;
+
+      thisApp.data = dataSource;
+    },
+    init: function() {
       const thisApp = this;
       console.log('*** App starting ***');
       console.log('thisApp:', thisApp);
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
+
+      thisApp.initData();
+      thisApp.initMenu();
+
     },
   };
 
