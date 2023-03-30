@@ -58,41 +58,106 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
-      thisProduct.initAcordeon();
+      thisProduct.getElements();
+      thisProduct.initAcordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
       // console.log('new Product', thisProduct);
     }
+
     renderInMenu() {
       const thisProduct = this;
-      /*generate html based on template */
+      /*[DONE]generate html based on template */
       const generatedHTML = templates.menuProduct(thisProduct.data);
-      /* create eleemnt using utils.createElementFromHtml*/
+      /* [DONE]create eleemnt using utils.createElementFromHtml*/
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
-      /*find menu container */
+      /*[DONE]find menu container */
       const menuContainer = document.querySelector(select.containerOf.menu);
-      /*add element to menu */
+      /*[DONE]add element to menu */
       menuContainer.appendChild(thisProduct.element);
     }
-    initAcordeon() {
+
+    getElements() {
       const thisProduct = this;
-      // console.log('1 ', this);
-      /* find the clickable trigger (the element that should react to clicking) */
-      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
-      // console.log('2', thisProduct.element);
-      /* START: add event listener to clickable trigger on event click */
-      clickableTrigger.addEventListener('click', function(event) {
-        /* prevent default action for event */
+
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+    }
+
+    initAcordion() {
+      const thisProduct = this;
+
+      /*[DONE] START: add event listener to clickable trigger on event click */
+      thisProduct.accordionTrigger.addEventListener('click', function(event) {
+        /* [DONE]prevent default action for event */
         event.preventDefault();
-        /* find active product (product that has active class) */
+        /* [DONE]find active product (product that has active class) */
         const activeProduct = document.querySelector(select.all.menuProductsActive);
-        /* if there is active product and it's not thisProduct.element, remove class active from it */
+
+        /* [DONE]if there is active product and it's not thisProduct.element, remove class active from it */
         if (activeProduct && activeProduct != thisProduct.element) {
           activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
         }
-        /* toggle active class on thisProduct.element */
+        /* [DONE]toggle active class on thisProduct.element */
         thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
       });
     }
+    initOrderForm() {
+      const thisProduct = this;
+      thisProduct.form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+
+      for (let input of thisProduct.formInputs) {
+        input.addEventListener('change', function() {
+          thisProduct.processOrder();
+        });
+      }
+
+      thisProduct.cartButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+    }
+    processOrder() {
+      const thisProduct = this;
+
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('formData', formData);
+
+      /*set proce to default proce */
+      let price = thisProduct.data.price;
+      /*for every category(param)...  */
+      for (let paramId in thisProduct.data.params) {
+        /*determinate param value */
+        const param = thisProduct.data.params[paramId];
+        console.log(paramId, param);
+        /*for every option in this category */
+        for (let optionId in param.options) {
+          /* determine option value*/
+          const option = param.options[optionId];
+          console.log(optionId, option);
+          if (formData[paramId] && formData[paramId].includes(optionId)) {
+            if (!option.default) {
+              price += option.price;
+            }
+          } else {
+            if (option.default)
+              price -= option.price;
+          }
+
+
+        }
+      }
+      /*update calculated price in the HTML*/
+      thisProduct.priceElem.innerHTML = price;
+    }
   }
+
 
 
   const app = {
