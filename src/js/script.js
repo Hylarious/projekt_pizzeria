@@ -43,8 +43,8 @@
   const settings = {
     amountWidget: {
       defaultValue: 1,
-      defaultMin: 1,
-      defaultMax: 9,
+      defaultMin: 0,
+      defaultMax: 10,
     }
   };
 
@@ -93,10 +93,10 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+      thisProduct.amountWidgetElem.addEventListener('updated', function() { thisProduct.processOrder(); });
     }
     initAcordion() {
       const thisProduct = this;
-
       /*[DONE] START: add event listener to clickable trigger on event click */
       thisProduct.accordionTrigger.addEventListener('click', function(event) {
         /* [DONE]prevent default action for event */
@@ -135,7 +135,6 @@
 
       const formData = utils.serializeFormToObject(thisProduct.form);
       // console.log('formData', formData);
-
       /*set proce to default proce */
       let price = thisProduct.data.price;
       /*for every category(param)...  */
@@ -166,6 +165,8 @@
           }
         }
       }
+      // multipy proce by ammount
+      price *= thisProduct.amountWidget.value;
       /*update calculated price in the HTML*/
       thisProduct.priceElem.innerHTML = price;
     }
@@ -178,26 +179,53 @@
       console.log('constructor arguments', element);
 
       thisWidget.getElements(element);
+      thisWidget.setValue(settings.amountWidget.defaultValue);
+      thisWidget.initAction();
     }
+
     getElements(element) {
       const thisWidget = this;
 
       thisWidget.element = element;
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
-      thisWidget.linkIncrease - thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
     }
+
     setValue(value) {
       const thisWidget = this;
+
       const newValue = parseInt(value);
-      if (newValue != thisWidget.value) {
+      if (!isNaN(newValue) && newValue !== thisWidget.value && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
         thisWidget.value = newValue;
+        thisWidget.announce();
       }
       thisWidget.input.value = thisWidget.value;
 
     }
+    initAction() {
+      const thisWidget = this;
+      thisWidget.input.addEventListener('change', function() {
+        thisWidget.setValue(thisWidget.input.value);
+      });
+      thisWidget.linkDecrease.addEventListener('click', function(event) {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value - 1);
+      });
+      thisWidget.linkIncrease.addEventListener('click', function(event) {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value + 1);
+      });
+    }
+    announce() {
+      const thisWidget = this;
 
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
+    }
   }
+
+
 
 
 
@@ -210,11 +238,13 @@
         new Product(productData, thisApp.data.products[productData]);
       }
     },
+
     initData: function() {
       const thisApp = this;
 
       thisApp.data = dataSource;
     },
+
     init: function() {
       const thisApp = this;
       console.log('*** App starting ***');
@@ -225,6 +255,7 @@
 
       thisApp.initData();
       thisApp.initMenu();
+      // thisApp.initAction();
 
     },
   };
