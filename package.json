@@ -32,7 +32,9 @@
         "autoprefixer": "^10.2.4",
         "browser-sync": "^2.26.3",
         "copyfiles": "^2.1.0",
-        "eslint": "^5.14.1",
+        "eslint": "^8.37.0",
+        "eslint-config-prettier": "^8.8.0",
+        "eslint-plugin-prettier": "^4.2.1",
         "globstar": "^1.0.0",
         "html-validate": "^7.3.2",
         "mkdirp": "^0.5.1",
@@ -41,10 +43,12 @@
         "postcss": "^8.2.6",
         "postcss-cli": "^8.3.1",
         "postcss-scss": "^4.0.4",
+        "prettier": "^2.8.7",
         "rimraf": "^3.0.2",
         "sass": "^1.44.0",
         "stylelint": "^14.11.0",
         "stylelint-config-standard-scss": "^5.0.0",
+        "stylelint-prettier": "^3.0.0",
         "stylelint-scss": "^4.3.0"
     }
 }

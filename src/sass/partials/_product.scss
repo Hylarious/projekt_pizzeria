@@ -8,7 +8,6 @@
   background: $color-light;
   border-bottom: 1px solid lighten($color-dark, 70%);
   border-radius: $radius;
-
   &__header {
     @include flex(row, center, space-between);
     margin-bottom: ($base-size * 2);
@@ -16,14 +15,12 @@
     font-size: 22px;
     cursor: pointer;
   }
-
   &__name {
     position: relative;
     margin: 0;
     font-weight: $font-semibold;
     text-transform: uppercase;
   }
-
   &__icon {
     position: absolute;
     color: $color-main;
@@ -32,87 +29,70 @@
     font-size: ($base-size * 1.5);
     transition: $transition;
   }
-
   &__base-price {
     font-weight: $font-light;
   }
-
   &__description {
     color: lighten($color-dark, 10%);
   }
-
   &__wrapper {
     @include flex(row, center, space-between);
     @include accordion-closed();
     animation: flipdown 0.5s ease both;
   }
-
   &__params {
     margin: 0 0 ($base-size * 3) 0;
     padding: 0;
     list-style-type: none;
   }
-
   &__params-title {
     font-size: 14px;
     font-weight: $font-bold;
     text-transform: uppercase;
     margin: ($base-size * 2) 0;
   }
-
   &__order {
     width: calc(100% - 400px);
     opacity: 0;
     transition: opacity 200ms;
   }
-
   &__total-price {
     font-size: 14px;
     font-weight: $font-bold;
     text-transform: uppercase;
   }
-
   &__images {
     position: relative;
     width: 350px;
     height: 350px;
     opacity: 0;
     transition: opacity 200ms;
-
     &.small {
       width: 220px;
       height: 220px;
     }
-
     > img {
       @include center();
       height: auto;
       opacity: 0;
       transition: opacity 500ms;
-
       &.active {
         opacity: 1;
       }
-
     }
-
   }
-
   &.active {
     .product__wrapper {
       @include accordion-open();
     }
-
-    .product__order, .product__images {
+    .product__order,
+    .product__images {
       opacity: 1;
     }
-
     .product__icon {
       transform: rotate(180deg);
     }
-
   }
-
 }
 
 .widget-amount {
@@ -123,5 +103,4 @@
     margin: 0 ($base-size / 2);
     padding: 0;
   }
-
 }
