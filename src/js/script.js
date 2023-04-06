@@ -307,8 +307,8 @@
       ) {
         thisWidget.value = newValue;
         thisWidget.announce();
-        thisWidget.input.value = thisWidget.value;
       }
+      thisWidget.input.value = thisWidget.value;
     }
 
     initAction() {
@@ -443,8 +443,6 @@
       thisCartProduct.price = menuProduct.price;
       thisCartProduct.amount = menuProduct.amount;
       thisCartProduct.priceSingle = menuProduct.priceSingle;
-
-      console.log('1', thisCartProduct.priceSingle);
 
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget();
