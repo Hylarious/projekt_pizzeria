@@ -11,15 +11,11 @@
   &__header {
     @include flex(row, center, space-between);
     margin-bottom: ($base-size * 2);
-    font-family: $font-header;
-    font-size: 22px;
     cursor: pointer;
   }
   &__name {
+    @extend .h1;
     position: relative;
-    margin: 0;
-    font-weight: $font-semibold;
-    text-transform: uppercase;
   }
   &__icon {
     position: absolute;
@@ -30,6 +26,7 @@
     transition: $transition;
   }
   &__base-price {
+    @extend .h1;
     font-weight: $font-light;
   }
   &__description {
@@ -46,9 +43,7 @@
     list-style-type: none;
   }
   &__params-title {
-    font-size: 14px;
-    font-weight: $font-bold;
-    text-transform: uppercase;
+    @extend .h2;
     margin: ($base-size * 2) 0;
   }
   &__order {
