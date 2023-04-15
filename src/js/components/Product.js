@@ -9,7 +9,7 @@ class Product {
     thisProduct.data = data;
     thisProduct.renderInMenu();
     thisProduct.getElements();
-    thisProduct.initAcordion();
+    thisProduct.initAccordion();
     thisProduct.initOrderForm();
     thisProduct.initAmountWidget();
     thisProduct.processOrder();
@@ -19,7 +19,7 @@ class Product {
     const thisProduct = this;
     /*[DONE]generate html based on template */
     const generatedHTML = templates.menuProduct(thisProduct.data);
-    /* [DONE]create eleemnt using utils.createElementFromHtml*/
+    /* [DONE]create element using utils.createElementFromHtml*/
     thisProduct.element = utils.createDOMFromHTML(generatedHTML);
     /*[DONE]find menu container */
     const menuContainer = document.querySelector(select.containerOf.menu);
@@ -60,7 +60,7 @@ class Product {
       thisProduct.processOrder();
     });
   }
-  initAcordion() {
+  initAccordion() {
     const thisProduct = this;
 
     /*[DONE] START: add event listener to clickable trigger on event click */
@@ -104,7 +104,7 @@ class Product {
   processOrder() {
     const thisProduct = this;
     const formData = utils.serializeFormToObject(thisProduct.form);
-    /*set proce to default proce */
+    /*set price to default price */
     let price = thisProduct.data.price;
 
     /*for every category(param)...  */
@@ -138,7 +138,7 @@ class Product {
       }
     }
     thisProduct.priceSingle = price;
-    // multipy proce by amount
+    // multiply price by amount
     price *= thisProduct.amountWidget.value;
     /*update calculated price in the HTML*/
     thisProduct.priceElem.innerHTML = price;

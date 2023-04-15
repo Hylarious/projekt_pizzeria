@@ -15,8 +15,8 @@ class Booking {
     thisBooking.dom.wrapper = booking;
 
     const generatedHTML = templates.bookingWidget();
-    const genetaredDom = utils.createDOMFromHTML(generatedHTML);
-    thisBooking.dom.wrapper.appendChild(genetaredDom);
+    const generatedDom = utils.createDOMFromHTML(generatedHTML);
+    thisBooking.dom.wrapper.appendChild(generatedDom);
     thisBooking.dom.peopleAmount = document.querySelector(
       select.booking.peopleAmount
     );

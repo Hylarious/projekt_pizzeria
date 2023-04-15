@@ -24,7 +24,7 @@ const app = {
       link.addEventListener('click', function (event) {
         const clickedElement = this;
         event.preventDefault();
-        // get page id from hrefAtribute
+        // get page id from hrefAttribute
         const id = clickedElement.getAttribute('href').replace('#', '');
 
         // run thiApp.activatePage with that id
