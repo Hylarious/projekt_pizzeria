@@ -136,6 +136,7 @@ class Booking {
     for (let table of thisBooking.dom.tables) {
       let tableId = table.getAttribute(settings.booking.tableIdAttribute);
 
+      table.classList.remove(classNames.booking.tableChosen);
       if (!isNaN(tableId)) {
         tableId = parseInt(tableId);
       }
@@ -202,7 +203,7 @@ class Booking {
 
     thisBooking.dom.floorPlan.addEventListener('click', function (event) {
       const selectedTable = event.target;
-      console.log('1', selectedTable);
+
       if (selectedTable.classList.contains('table')) {
         if (
           selectedTable.classList.contains(
@@ -235,7 +236,11 @@ class Booking {
     thisBooking.dom.wrapper
       .querySelector('.order-confirmation button[type="submit"]')
       .addEventListener('click', function (event) {
+        event.preventDefault();
+
+        thisBooking.updateDOM();
         thisBooking.sendBooking();
+        thisBooking.updateDOM();
       });
   }
   sendBooking() {
@@ -253,7 +258,6 @@ class Booking {
     booking.address = thisBooking.dom.address.value;
     booking.starters = thisBooking.starters;
 
-    console.log('3', booking);
     const options = {
       method: 'POST',
       headers: {
@@ -272,13 +276,20 @@ class Booking {
         console.log('parsedResponse', parsedResponse);
       })
       .then(function () {
-        thisBooking.booked = booking;
+        thisBooking.makeBooked(
+          booking.date,
+          booking.hour,
+          booking.duration,
+          booking.table
+        );
+        console.log(thisBooking.booked);
+        thisBooking.updateDOM();
       })
-      .then(
+      .then(function () {
         alert(
           'You booked a table on ' + booking.date + ' at ' + booking.hour + '!'
-        )
-      );
+        );
+      });
   }
 }
 
