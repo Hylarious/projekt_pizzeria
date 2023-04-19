@@ -238,9 +238,7 @@ class Booking {
       .addEventListener('click', function (event) {
         event.preventDefault();
 
-        thisBooking.updateDOM();
         thisBooking.sendBooking();
-        thisBooking.updateDOM();
       });
   }
   sendBooking() {
