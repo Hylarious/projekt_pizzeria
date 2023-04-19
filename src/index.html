@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pizzeria</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <script src="https://kit.fontawesome.com/f88bba998b.js" crossorigin="anonymous"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="vendor/range-slider.min.css">
@@ -67,15 +69,65 @@
     <div id="pages">
         <section id="home" class="home-content container">
 
-            <div id="big-links" class="links"> Text</div>
-            <div id="reviews" class="reviews">
-                <div class="main-carousel">
-                    <div class="carousel-cell"></div>
-                    <div class="carousel-cell"></div>
-                    <div class="carousel-cell"></div>
+            <div class="big-links">
+                <div class="home-links">
+                    <div class="order_link"><img src="images/main/pizza-1.jpg" alt="order"><a href="#order">Order online</a></div>
+                    <div class="booking_link"> <img src="images/main/pizza-2.jpg" alt="booking"> <a href="#booking">Book a table</a></div>
+                </div>
+                <div class="hours">
+                    <div>
+                        <h3>Opening hours:</h3>
+                        <p>Tue-sun, 12pm -12am</p>
+                    </div>
+
                 </div>
             </div>
-            <div class="insta-photos"></div>
+            <div id="reviews" class="reviews">
+                <div class="main-carousel" data-flickity='{ "wrapAround": true, "autoPlay": true}'>
+                    <div class="carousel-cell">
+                        <img src="images/main/pizza-3.jpg" alt="review">
+                        <div>
+                            <h3>Amazing Service!</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, quod sit dicta adipisci distinctio ipsam necessitatibus? Reprehenderit facere obcaecati fugiat?</p>
+                            <p class="review-name">- Lorem, ipsum.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-cell"><img src="images/main/pizza-3.jpg" alt="review">
+                        <div>
+                            <h3>Amazing Service!</h3>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam iusto, veritatis blanditiis nemo et facere? Similique quidem inventore dolore placeat fugiat!</p>
+                            <p class="review-name">- Lorem, ipsum.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-cell"><img src="images/main/pizza-3.jpg" alt="review">
+                        <div>
+                            <h3>Amazing Service!</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui eligendi iste, expedita sunt asperiores ipsam delectus aliquam nisi? Nulla, illum error.</p>
+                            <p class="review-name">- Lorem, ipsum.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="insta-photos">
+                <div class="photo"><img src="images/main/pizza-4.jpg" alt="insta">
+                    <div><i class="fa-solid fa-heart"></i><i class="fa-solid fa-share-nodes"></i></div>
+                </div>
+                <div class="photo"><img src="images/main/pizza-5.jpg" alt="insta">
+                    <div><i class="fa-solid fa-heart"></i><i class="fa-solid fa-share-nodes"></i></div>
+                </div>
+                <div class="photo"><img src="images/main/pizza-6.jpg" alt="insta">
+                    <div><i class="fa-solid fa-heart"></i><i class="fa-solid fa-share-nodes"></i></div>
+                </div>
+                <div class="photo"><img src="images/main/pizza-7.jpg" alt="insta">
+                    <div><i class="fa-solid fa-heart"></i><i class="fa-solid fa-share-nodes"></i></div>
+                </div>
+                <div class="photo"><img src="images/main/pizza-8.jpg" alt="insta">
+                    <div><i class="fa-solid fa-heart"></i><i class="fa-solid fa-share-nodes"></i></div>
+                </div>
+                <div class="photo"><img src="images/main/pizza-9.jpg" alt="insta">
+                    <div><i class="fa-solid fa-heart"></i><i class="fa-solid fa-share-nodes"></i></div>
+                </div>
+            </div>
         </section>
         <section id="order">
             <div id="product-list" class="product-list container"></div>
@@ -273,6 +325,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="vendor/range-slider.min.js" type="module"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script src="js/app.js" type="module"></script>
 </body>
 

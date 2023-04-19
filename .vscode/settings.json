@@ -1,4 +1,8 @@
 {
 	"beautify.options": {},
-	"eslint.codeActionsOnSave.rules": null
+	"eslint.codeActionsOnSave.rules": null,
+	"cSpell.words": [
+		"flickity",
+		"insta"
+	]
 }
