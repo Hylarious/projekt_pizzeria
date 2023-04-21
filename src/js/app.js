@@ -9,6 +9,7 @@ const app = {
 
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
+    thisApp.homeLinks = document.querySelectorAll('.home-links a');
 
     const idFromHash = window.location.hash.replace('#/', '');
     let pageMatchingHash = thisApp.pages[0].id;
@@ -20,19 +21,23 @@ const app = {
     }
     thisApp.activatePage(pageMatchingHash);
 
+    function handleLinkClick(event) {
+      const clickedElement = this;
+      event.preventDefault();
+      const id = clickedElement.getAttribute('href').replace('#', '');
+
+      // run thiApp.activatePage with that id
+      thisApp.activatePage(id);
+
+      // change URL hash
+      window.location.hash = '#/' + id;
+    }
+
     for (let link of thisApp.navLinks) {
-      link.addEventListener('click', function (event) {
-        const clickedElement = this;
-        event.preventDefault();
-        // get page id from hrefAttribute
-        const id = clickedElement.getAttribute('href').replace('#', '');
-
-        // run thiApp.activatePage with that id
-        thisApp.activatePage(id);
-
-        // change URL hash
-        window.location.hash = '#/' + id;
-      });
+      link.addEventListener('click', handleLinkClick);
+    }
+    for (let link of thisApp.homeLinks) {
+      link.addEventListener('click', handleLinkClick);
     }
   },
 
