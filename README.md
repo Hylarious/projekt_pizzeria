@@ -1,1 +1,1 @@
-https://projektpizzeria.hylarious.repl.co/#/booking
+https://projektpizzeria.hylarious.repl.co
